@@ -7,7 +7,7 @@ Original file is located at
     https://colab.research.google.com/drive/1sdNX4_dSBA7be3GLNvvt7OrB7SqKfmxJ
 """
 
-
+import statsmodels.api as sm
 import streamlit as st
 import pandas as pd
 import numpy as np

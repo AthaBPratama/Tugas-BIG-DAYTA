@@ -7,6 +7,11 @@ Original file is located at
     https://colab.research.google.com/drive/1sdNX4_dSBA7be3GLNvvt7OrB7SqKfmxJ
 """
 
+!pip install streamlit
+
+!pip install streamlit plotly
+
+import streamlit as st
 import pandas as pd
 import numpy as np
 import plotly.express as px
@@ -86,7 +91,7 @@ fig3.show()
 #@title 🎛️ Simulator Prediksi Harga Laptop Baru (Geser Parameter)
 #@markdown Pilih spesifikasi di bawah ini untuk mengestimasi harga jual pasarannya:
 
-Input_RAM_GB = 16 #@param {type:"slider", min:4, max:64, step:4}
+Input_RAM_GB = 36 #@param {type:"slider", min:4, max:64, step:4}
 Input_SSD_GB = 2048 #@param {type:"slider", min:128, max:2048, step:128}
 
 # Melakukan prediksi berdasarkan input form

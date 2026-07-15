@@ -15,27 +15,10 @@ st.set_page_config(
     layout="wide"
 )
 
-# Cek apakah file dataset_final.csv sudah diunggah
-if os.path.exists("dataset_final.csv"):
-    df = pd.read_csv("dataset_final.csv")
-    st.success("Dataset berhasil dimuat.")
-else:
-    st.warning("dataset_final.csv tidak ditemukan. Menggunakan data simulasi.")
-    df = pd.read_csv("dataset_final.csv")
-else:
-    print("⚠ File dataset_final.csv tidak ditemukan. Membuat data simulasi (dummy) agar kode tidak error...")
-    # Membuat data dummy untuk simulasi
-    np.random.seed(42)
-    brands = ['ASUS', 'Lenovo', 'HP', 'Acer', 'Apple']
-    data = {
-        'Brand': np.random.choice(brands, 100),
-        'RAM': np.random.choice([4, 8, 16, 32], 100, p=[0.2, 0.4, 0.3, 0.1]),
-        'SSD': np.random.choice([256, 512, 1024], 100, p=[0.3, 0.5, 0.2]),
-        'Processor': np.random.choice(['Intel i3', 'Intel i5', 'Intel i7', 'Ryzen 5', 'Ryzen 7'], 100)
-    }
-    # Rumus logis buatan untuk harga biar korelasinya masuk akal
-    data['Price'] = 3000000 + (data['RAM'] * 400000) + (data['SSD'] * 5000) + np.random.normal(0, 500000, 100)
-    df = pd.DataFrame(data)
+# Membaca dataset asli
+df = pd.read_csv("dataset_final.csv")
+
+st.success("✅ Dataset berhasil dimuat.")
 
 # Tampilkan 5 data teratas
 st.subheader("Data Laptop")

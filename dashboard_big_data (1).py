@@ -15,12 +15,10 @@ st.set_page_config(
     layout="wide"
 )
 
-# Membaca dataset asli
 df = pd.read_csv("dataset_final.csv")
 
 st.success("✅ Dataset berhasil dimuat.")
 
-# Tampilkan 5 data teratas
 st.subheader("Data Laptop")
 st.dataframe(df.head())
 
@@ -31,11 +29,9 @@ st.write(f"**Rata-rata Harga:** Rp {df['Price'].mean():,.0f}")
 st.write(f"**Harga Tertinggi:** Rp {df['Price'].max():,.0f}")
 st.write(f"**Harga Terendah:** Rp {df['Price'].min():,.0f}")
 
-# Menampilkan informasi tipe data kolom
 st.subheader("5 Data Pertama")
 st.dataframe(df.head())
 
-# Grafik 1: Rata-rata Harga Berdasarkan Brand
 df_brand = df.groupby('Brand')['Price'].mean().reset_index().sort_values(by='Price', ascending=False)
 fig1 = px.bar(df_brand, x='Brand', y='Price',
              title='Rata-rata Harga Laptop Berdasarkan Brand',
@@ -43,27 +39,21 @@ fig1 = px.bar(df_brand, x='Brand', y='Price',
              color='Brand', template='plotly_dark')
 st.plotly_chart(fig1, use_container_width=True)
 
-# Grafik 2: Distribusi RAM di Pasar
 fig2 = px.pie(df, names='RAM', title='Persentase Distribusi Kapasitas RAM Laptop',
              template='plotly_dark', hole=0.3)
 st.plotly_chart(fig2, use_container_width=True)
 
-# Bersihkan data dari nilai kosong jika ada
 df_clean = df.dropna(subset=['RAM', 'SSD', 'Price'])
 
-# Menentukan variabel independen (X) dan dependen (y)
 X = df_clean[['RAM', 'SSD']]
 y = df_clean['Price']
 
-# Inisialisasi dan latih model
 model = LinearRegression()
 model.fit(X, y)
 
-# Mengecek skor akurasi (R-squared)
 score = model.score(X, y)
 st.write(f"**Nilai R² Model:** {score:.2f}")
 
-# Visualisasi Hasil Prediksi vs Harga Asli
 df_clean = df_clean.copy()
 df_clean['Prediksi_Harga'] = model.predict(X)
 fig3 = px.scatter(df_clean, x='Price', y='Prediksi_Harga', color='Brand',
@@ -91,7 +81,6 @@ Input_SSD_GB = st.slider(
     value=512
 )
 
-# Melakukan prediksi berdasarkan input form
 input_data = pd.DataFrame({
     "RAM":[Input_RAM_GB],
     "SSD":[Input_SSD_GB]
